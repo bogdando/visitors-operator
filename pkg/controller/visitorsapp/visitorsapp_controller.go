@@ -61,7 +61,20 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 	if err != nil {
 		return err
 	}
-
+	err = c.Watch(&source.Kind{Type: &appsv1.Deployment{}}, &handler.EnqueueRequestForOwner{
+		IsController: true,
+		OwnerType:    &examplev1.VisitorsApp{},
+	})
+	if err != nil {
+		return err
+	}
+	err = c.Watch(&source.Kind{Type: &corev1.Service{}}, &handler.EnqueueRequestForOwner{
+		IsController: true,
+		OwnerType:    &examplev1.VisitorsApp{},
+	})
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
