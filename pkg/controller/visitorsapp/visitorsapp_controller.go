@@ -3,6 +3,7 @@ package visitorsapp
 import (
 	"context"
 
+	appsv1 "k8s.io/api/apps/v1"
 	examplev1 "visitors-operator/pkg/apis/example/v1"
 
 	corev1 "k8s.io/api/core/v1"
