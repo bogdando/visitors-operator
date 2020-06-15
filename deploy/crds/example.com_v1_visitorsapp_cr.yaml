@@ -2,6 +2,7 @@ apiVersion: example.com/v1
 kind: VisitorsApp
 metadata:
   name: example-visitorsapp
+  namespace: operators-playground
 spec:
   # Add fields here
   size: 2

@@ -8,12 +8,20 @@ operator-sdk generate crds
 operator-sdk generate k8s 
 operator-sdk add controller --api-version=example.com/v1 --kind=VisitorsApp
 
+...
+GOFLAGS=-mod=vendor go mod vendor
+GOFLAGS=-mod=vendor go build ./...
+export OPERATOR_NAME=visitorsapp
+kubectl apply -f deploy/crds/*_crd.yaml
+operator-sdk run local --watch-namespace default --verbose
 
 ...
+kubectl apply -f deploy/namespace.yaml
+kubectl config set-context --current --namespace=operators-playground
+
 export GO111MODULE=on
 go mod init
-operator-sdk build visitors-operator:0.1 #REPLACE_IMAGE in
-deploy/operator.yaml
+operator-sdk build docker.io/bogdando/visitors-operator:0.1 #REPLACE_IMAGE in deploy/operator.yaml
 kubectl apply -f deploy/crds/*_crd.yaml
 kubectl apply -f deploy/service_account.yaml
 kubectl apply -f deploy/role.yaml
