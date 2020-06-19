@@ -13,9 +13,9 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"k8s.io/client-go/rest"
 
-	"visitors-operator/pkg/apis"
-	"visitors-operator/pkg/controller"
-	"visitors-operator/version"
+	"github.com/bogdando/visitors-operator/pkg/apis"
+	"github.com/bogdando/visitors-operator/pkg/controller"
+	"github.com/bogdando/visitors-operator/version"
 
 	"github.com/operator-framework/operator-sdk/pkg/k8sutil"
 	kubemetrics "github.com/operator-framework/operator-sdk/pkg/kube-metrics"
@@ -28,9 +28,11 @@ import (
 	"k8s.io/apimachinery/pkg/util/intstr"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
-	logf "sigs.k8s.io/controller-runtime/pkg/log"
+
+	// logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
-	"sigs.k8s.io/controller-runtime/pkg/manager/signals"
+	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
+	"sigs.k8s.io/controller-runtime/pkg/runtime/signals"
 )
 
 // Change below variables to serve metrics on different host or port.
@@ -85,6 +87,7 @@ func main() {
 	}
 
 	ctx := context.TODO()
+
 	// Become the leader before proceeding
 	err = leader.Become(ctx, "visitors-operator-lock")
 	if err != nil {

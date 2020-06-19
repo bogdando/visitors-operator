@@ -1,7 +1,7 @@
 package apis
 
 import (
-	v1 "visitors-operator/pkg/apis/example/v1"
+	v1 "github.com/bogdando/visitors-operator/pkg/apis/example/v1"
 )
 
 func init() {

@@ -9,24 +9,23 @@ rules:
   resources:
   - pods
   - services
-  - services/finalizers
-  - secrets
+  - endpoints
+  - persistentvolumeclaims
+  - events
   - configmaps
+  - secrets
+  - services/finalizers
   verbs:
-  - create
-  - get
-  - list
-  - watch
+  - '*'
 - apiGroups:
   - apps
   resources:
   - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
   verbs:
-  - create
-  - get
-  - list
-  - update
-  - watch
+  - '*'
 - apiGroups:
   - monitoring.coreos.com
   resources:
@@ -43,27 +42,8 @@ rules:
   verbs:
   - update
 - apiGroups:
-  - ""
-  resources:
-  - pods
-  - deployments
-  verbs:
-  - get
-- apiGroups:
-  - apps
-  resources:
-  - replicasets
-  verbs:
-  - get
-- apiGroups:
   - example.com
   resources:
   - '*'
   verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
+  - '*'

@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"visitors-operator/pkg/controller/visitorsapp"
+	"github.com/bogdando/visitors-operator/pkg/controller/visitorsapp"
 )
 
 func init() {
