@@ -24,6 +24,9 @@ kubectl apply -f deploy/namespace.yaml
 kubectl apply -f deploy/crds/*_crd.yaml
 operator-sdk build docker.io/bogdando/visitors-operator:0.2
 operator-sdk run local --watch-namespace operators-playground --verbose
+#... (watches for events in foreground) ...
+
+kubectl apply -f deploy/crds/*_cr.yaml
 ```
 
 # Deploy as usual
@@ -35,4 +38,12 @@ kubectl apply -f deploy/role_binding.yaml
 kubectl apply -f deploy/operator.yaml
 
 kubectl apply -f deploy/crds/*_cr.yaml
+
+
+kubectl delete -f deploy/crds/*_cr.yaml
+kubectl delete crd visitorsapps.example.com
+kubectl delete -f deploy/service_account.yaml
+kubectl delete -f deploy/role.yaml
+kubectl delete -f deploy/role_binding.yaml
+kubectl delete -f deploy/operator.yaml
 ```
