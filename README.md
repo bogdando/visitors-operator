@@ -1,3 +1,4 @@
+# Create from scratch
 ```
 operator-sdk new visitors-operator
 operator-sdk add api --api-version=example.com/v1 --kind=VisitorsApp
@@ -7,24 +8,31 @@ operator-sdk add api --api-version=example.com/v1 --kind=VisitorsApp
 operator-sdk generate crds
 operator-sdk generate k8s 
 operator-sdk add controller --api-version=example.com/v1 --kind=VisitorsApp
+```
 
-...
-GOFLAGS=-mod=vendor go mod vendor
-GOFLAGS=-mod=vendor go build ./...
-export OPERATOR_NAME=visitorsapp
-kubectl apply -f deploy/crds/*_crd.yaml
-operator-sdk run local --watch-namespace default --verbose
-
-...
-kubectl apply -f deploy/namespace.yaml
+# Build and run locally
+```
+kind create cluster --image kindest/node:latest
 kubectl config set-context --current --namespace=operators-playground
 
-export GO111MODULE=on
-go mod init
-operator-sdk build docker.io/bogdando/visitors-operator:0.1 #REPLACE_IMAGE in deploy/operator.yaml
+# export GOFLAGS=-mod=vendor
+# go mod vendor
+
+export OPERATOR_NAME=visitorsapp
+go build ./...
+kubectl apply -f deploy/namespace.yaml
+kubectl apply -f deploy/crds/*_crd.yaml
+operator-sdk build docker.io/bogdando/visitors-operator:0.2
+operator-sdk run local --watch-namespace operators-playground --verbose
+```
+
+# Deploy as usual
+```
 kubectl apply -f deploy/crds/*_crd.yaml
 kubectl apply -f deploy/service_account.yaml
 kubectl apply -f deploy/role.yaml
 kubectl apply -f deploy/role_binding.yaml
 kubectl apply -f deploy/operator.yaml
+
+kubectl apply -f deploy/crds/*_cr.yaml
 ```

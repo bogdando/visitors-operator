@@ -3,7 +3,6 @@ module github.com/bogdando/visitors-operator
 go 1.13
 
 require (
-	github.com/bogdando/visitors-operator v1.0.0
 	github.com/go-openapi/spec v0.19.3
 	github.com/golang/protobuf v1.4.0 // indirect
 	github.com/operator-framework/operator-sdk v0.18.1
